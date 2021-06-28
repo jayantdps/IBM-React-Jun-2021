@@ -36,28 +36,49 @@
      -->
     <script src="jquery-3.6.0.js"></script>
     <script>
-        $(function(){ /* this function is executed when the document is loaded */
-            $('#btnCalculate').on('click', function(){
-                var basic = parseInt($('#txtBasic').val()),
-                    hra = parseInt($('#txtHra').val()),
-                    da = parseInt($('#txtDa').val()),
-                    tax = parseInt($('#rangeTax').val());
+        //Model
+        //state & behaviour 
+        function SalaryCalculatorModel(){
+            //state
+            this.basic = 0;
+            this.hra = 0;
+            this.da = 0;
+            this.tax = 0;
+            this.salary = 0;
+        }
+        //behavior
+        SalaryCalculatorModel.prototype.calculate = function(){
+            var gross = this.basic + this.hra + this.da,
+                net = gross * ((100-this.tax)/100);
+            this.salary = net;
+        }
 
-                var gross = basic + hra + da,
-                    net = gross * ((100-tax)/100);
+
+        //UI (View)
+        $(function(){ 
+
+            var model = new SalaryCalculatorModel();
+
+            $('#btnCalculate').on('click', function(){
+                model.basic = parseInt($('#txtBasic').val());
+                model.hra = parseInt($('#txtHra').val());
+                model.da = parseInt($('#txtDa').val());
+                model.tax = parseInt($('#rangeTax').val());
+
+                model.calculate()
                 
-                $('#tdBasic').text(basic);
-                $('#tdHra').text(hra);
-                $('#tdDa').text(da);
-                $('#tdTax').text(tax);
-                $('#tdSalary').text(net);
+                $('#tdBasic').text(model.basic);
+                $('#tdHra').text(model.hra);
+                $('#tdDa').text(model.da);
+                $('#tdTax').text(model.tax);
+                $('#tdSalary').text(model.salary);
             });
         });
 
     </script>
 </head>
 <body>
-    <h1>Salary Calculator</h1>
+    <h1>Salary Calculator - V2</h1>
     <hr>
     <section>
         <div class="field">
