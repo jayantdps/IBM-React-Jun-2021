@@ -1,0 +1,33 @@
+Magesh Kuppan
+
+Schedule
+Commence    : 09:30 
+Tea Break   : 11:00 (20 mins)
+Lunch Break : 13:00 (60 mins)
+Tea Break   : 15:30 (20 mins)
+Windup      : 17:30 
+
+Methodology
+    - Hands on driven
+    - No powerpoints
+    - 50% completion
+
+1. Name
+2. Total Experience
+3. Primary Skillset
+4. Experience in any JS framework (Backbone.js / Angular etc)
+5. Experience in React if any 
+6. Any interesting books you have read / any shows you watched recently
+
+Attitude is Everything
+Power of subconsious mind
+The richest man in Babylon
+The Secret
+
+Pushkin Vertigo
+britbox.com
+
+What is React.js?
+    JavaScript Library
+    framework for buildig RIA (Rich Internet Applications)
+
