@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDOM Demo</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script>
+        var counter = 0;
+        function onBtnRenderClick(){
+            ++counter;
+            var appEle = React.createElement('div', null, 
+                React.createElement('h1', null, 'React.js!'),
+                React.createElement('hr'),
+                React.createElement('div', null, 
+                    React.createElement('span', null, 'Counter [updated using virtual DOM] :'),
+                    React.createElement('span', { id :'spanCount'}, counter)
+                ),
+                React.createElement('section', null, 
+                    React.createElement('h3', null, 'Introduction'),
+                    React.createElement('p', null, 'Proident incididunt nulla aliqua aliquip duis voluptate. Ipsum anim consectetur commodo Lorem incididunt consequat consequat anim proident id reprehenderit. Mollit amet minim reprehenderit commodo exercitation nostrud eu ullamco irure sint enim mollit laboris.'),
+                    React.createElement('p', null, 'Pariatur ipsum anim aliqua mollit. Consequat ad aliquip nulla ex. Ea nisi officia veniam reprehenderit quis deserunt dolore amet laboris occaecat ipsum ullamco tempor. Commodo pariatur cillum pariatur sint minim reprehenderit fugiat occaecat sunt. Ad reprehenderit pariatur mollit elit id enim consectetur ullamco. Nisi officia ut eiusmod eu nostrud officia fugiat id voluptate ut enim. Ut irure ullamco voluptate nostrud non et nisi fugiat excepteur id.'),
+                    React.createElement('p', null, 'Laboris magna ut enim sunt deserunt enim laborum. Et excepteur occaecat eiusmod id dolor pariatur consequat. Nulla proident laboris aliqua fugiat consectetur ut magna dolore fugiat culpa enim. Eiusmod officia sit do magna laboris dolor nulla pariatur in laborum voluptate incididunt Lorem. Commodo voluptate nisi quis ad sit consequat qui velit minim mollit.')
+                ),
+                React.createElement('section', null,
+                    React.createElement('h3', null, 'Advantages'),
+                    React.createElement('ol', null, 
+                        React.createElement('li', null, 'Declarative'),
+                        React.createElement('li', null, 'Efficient')
+                    ) 
+                )
+            )
+            ReactDOM.render(appEle, document.getElementById('root'));
+            document.getElementById('spanCount').innerText = counter;
+        }
+        function onDocumentLoad(){
+            var btnRender = document.getElementById('btnRender');
+            btnRender.addEventListener('click', onBtnRenderClick);
+        }
+        window.addEventListener('load', onDocumentLoad)
+
+    </script>
+</head>
+<body>
+    <input type="button" value="Render" id="btnRender">
+    <!-- <div>
+        <span>Counter [updated using actual DOM] :</span>
+        <span id="spanCount">0</span>
+    </div> -->
+    <div id="root">
+
+    </div>
+</body>
+</html>
