@@ -8,6 +8,15 @@
     <script src="react.development.js"></script>
     <script src="react-dom.development.js"></script>
     <script src="babel.min.js"></script>
+    <style>
+        .positive{
+            color : green;
+        }
+        .negative{
+            color : red;
+        }
+
+    </style>
     <script type="text/babel">
         class Calculator extends React.Component{
             state = {
@@ -31,7 +40,9 @@
                 const n1 = this.state.n1,
                     n2 = this.state.n2; 
                     */
-                const { n1, n2 } = this.state;
+                const { n1, n2, result } = this.state;
+                const resultStyle = result >= 0 ? 'positive' : 'negative';
+                console.log(result !== 0)
                 return(
                     <div>
                         <h1>Calculator</h1>
@@ -43,7 +54,8 @@
                         <input type="button" value="Subtract" onClick={() => this.setState({result : n1 - n2})} />
                         <input type="button" value="Multiply" onClick={() => this.setState({ result: n1 * n2 })}/>
                         <input type="button" value="Divide" onClick={() => this.setState({ result: n1 / n2 })}/>
-                        <div>{this.state.result}</div>
+                        { result !== 0 ? (<div className={resultStyle}>{result}</div>) : <div>No result yet!</div> }
+                        {/* { result !== 0 && (<div className={resultStyle}>{result}</div>)} */}
                     </div>
                 )
             }
