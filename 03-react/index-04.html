@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My App</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <style>
+        .positive{
+            color : green;
+        }
+        .negative{
+            color : red;
+        }
+        .highlight{
+            font-size: 18pt;
+            color : blue;
+        }
+    </style>
+    <script type="text/babel">
+        class Greeter extends React.Component {
+                //state
+                state = {
+                    greetMessage: '[Default greet message]',
+                    userName: ''
+                };
+
+                //ui behavior
+                onBtnGreetClick = () => {
+                    this.setState({
+                        greetMessage: `Hi ${this.state.userName}, ${this.props.messageTemplate}`
+                    });
+                };
+
+                onTxtUserNameChange = (evt) => {
+                    this.setState({
+                        userName: evt.target.value
+                    });
+                }
+
+                //presentation
+                render() {
+                    return (
+                        <div>
+                            <h1>Greeter</h1>
+                            <hr />
+                            <label htmlFor="">User Name :</label>
+                            <input type="text" onChange={this.onTxtUserNameChange} />
+                            <input type="button" value="Greet" onClick={this.onBtnGreetClick} />
+                            <div className="highlight">{this.state.greetMessage}</div>
+                        </div>
+                    )
+                }
+            }
+
+            class Calculator extends React.Component {
+                state = {
+                    n1: 0,
+                    n2: 0,
+                    result: 0
+                }
+
+                onTxtN1Change = (evt) => {
+                    this.setState({ n1: parseInt(evt.target.value) })
+                };
+
+                onBtnAddClick = () => {
+                    this.setState({
+                        result: this.state.n1 + this.state.n2
+                    });
+                }
+
+                render() {
+                    /* 
+                    const n1 = this.state.n1,
+                        n2 = this.state.n2; 
+                        */
+                    const { n1, n2, result } = this.state;
+                    const resultStyle = result >= 0 ? 'positive' : 'negative';
+                    console.log(result !== 0)
+                    return (
+                        <div>
+                            <h1>Calculator</h1>
+                            <hr />
+                            <input type="number" onChange={this.onTxtN1Change} />
+                            <input type="number" onChange={evt => this.setState({ n2: parseInt(evt.target.value) })} />
+                            <br />
+                            <input type="button" value="Add" onClick={this.onBtnAddClick} />
+                            <input type="button" value="Subtract" onClick={() => this.setState({ result: n1 - n2 })} />
+                            <input type="button" value="Multiply" onClick={() => this.setState({ result: n1 * n2 })} />
+                            <input type="button" value="Divide" onClick={() => this.setState({ result: n1 / n2 })} />
+                            {result !== 0 ? (<div className={resultStyle}>{result}</div>) : <div>No result yet!</div>}
+                            {/* { result !== 0 && (<div className={resultStyle}>{result}</div>)} */}
+                        </div>
+                    )
+                }
+            }
+            class Products extends React.Component {
+                state = {
+                    newProductName: '',
+                    productNames: []
+                }
+
+                onBtnAddNewClick = () => {
+                    const { newProductName, productNames } = this.state;
+                    const updatedProductNames = [...productNames, newProductName];
+                    this.setState({
+                        productNames: updatedProductNames,
+                        newProductName: ''
+                    });
+                };
+
+                onBtnRemoveClick = (productToRemove) => {
+                    const updatedProductNames = this.state.productNames.filter(productName => productName != productToRemove);
+                    this.setState({
+                        productNames: updatedProductNames
+                    });
+                };
+
+                render() {
+                    const { productNames, newProductName } = this.state;
+                    const productItems = productNames.map((productName, index) => (
+                        <li key={index}>
+                            <span>{productName}</span>
+                            <span>
+                                <input type="button" value="Remove" onClick={() => this.onBtnRemoveClick(productName)} />
+                            </span>
+                        </li>
+                    ))
+                    return (
+                        <div>
+                            <h1>Products</h1>
+                            <hr />
+                            <label>Product Name :</label>
+                            <input
+                                type="text"
+                                value={newProductName}
+                                onChange={evt => this.setState({ newProductName: evt.target.value })} />
+                            <input type="button" value="Add New" onClick={this.onBtnAddNewClick} />
+                            <ul>
+                                {productItems}
+                            </ul>
+                        </div>
+                    )
+                }
+            }
+        ReactDOM.render(
+            <div>
+                <h1>My App</h1>
+                <input type="button" value="Greeter"/>
+                <input type="button" value="Calculator" />
+                <input type="button" value="Products" />
+                <hr/>
+                <Greeter messageTemplate="Have a nice day!"/>
+                <Calculator/>
+                <Products/>
+            </div>,
+            document.getElementById('root')
+        )
+    </script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+</body>
+</html>
