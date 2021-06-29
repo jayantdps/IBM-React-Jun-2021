@@ -147,17 +147,30 @@
                     )
                 }
             }
+
+        class App extends React.Component{
+            state = {
+                userChoice : ''
+            };
+
+            render(){
+                const { userChoice } = this.state;
+                return (
+                    <div>
+                        <h1>My App</h1>
+                        <input type="button" value="Greeter" onClick={ () => this.setState({ userChoice : 'greeter'})} />
+                        <input type="button" value="Calculator" onClick={() => this.setState({ userChoice: 'calculator' })}/>
+                        <input type="button" value="Products" onClick={() => this.setState({ userChoice: 'products' })}/>
+                        <hr />
+                        { userChoice === 'greeter' && (<Greeter messageTemplate="Have a nice day!" />)}
+                        { userChoice === 'calculator' && (<Calculator />) }
+                        { userChoice === 'products' && (<Products />) }
+                    </div>
+                )
+            }
+        }
         ReactDOM.render(
-            <div>
-                <h1>My App</h1>
-                <input type="button" value="Greeter"/>
-                <input type="button" value="Calculator" />
-                <input type="button" value="Products" />
-                <hr/>
-                <Greeter messageTemplate="Have a nice day!"/>
-                <Calculator/>
-                <Products/>
-            </div>,
+            <App/>,
             document.getElementById('root')
         )
     </script>
