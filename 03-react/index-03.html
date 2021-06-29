@@ -10,21 +10,37 @@
     <script src="babel.min.js"></script>
     <script type="text/babel">
         class Products extends React.Component{
+            state = {
+                newProductName : '',
+                productNames : []
+            }
+
+            onBtnAddNewClick = () => {
+                const { newProductName, productNames } = this.state;
+                const updatedProductNames = [ ...productNames, newProductName ];
+                this.setState({ 
+                    productNames : updatedProductNames,
+                    newProductName : '' 
+                });
+            }
             render(){
-                const productNames = [ 'Pen', 'Pencil', 'Marker', 'Scribble Pad', 'Mouse' ];
-                /* 
-                let productItems = [];
-                for (let index = 0, count = productNames.length; index < count; index++){
-                    const productName = productNames[index];
-                    const productItem = (<li key={index}>{productName}</li>)
-                    productItems.push(productItem);
-                } 
-                */
-               const productItems = productNames.map((productName, index) => (<li key={index}>{productName}</li>))
+                const { productNames, newProductName } = this.state;
+                const productItems = productNames.map((productName, index) => (
+                    <li key={index}>
+                        <span>{productName}</span>
+                        <span> <input type="button" value="Remove"/> </span>
+                    </li>
+                ))
                 return(
                     <div>
                         <h1>Products</h1>
                         <hr/>
+                        <label>Product Name :</label>
+                        <input 
+                            type="text" 
+                            value={newProductName}
+                            onChange={ evt => this.setState({newProductName : evt.target.value})} />
+                        <input type="button" value="Add New" onClick={this.onBtnAddNewClick}/>
                         <ul>
                             {productItems}
                         </ul>
