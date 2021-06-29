@@ -48,6 +48,8 @@ ES6 (ES2015 / ESNext / ECMAScript6)
 13. template strings
 14. class
 
+http://es6-features.org
+
 class Employee {
     id = 0;
     name = '';
@@ -71,3 +73,15 @@ class FullTimeEmployee extends Employee {
         this.benefits = benefits;
     }
 }
+
+
+HTML vs JSX
+
+HTML => Open tags are allowed
+JSX => Every open tag must have a corresponding close tag
+
+HTML => "for" attribute is valid
+JSX => use "htmlFor" instead of "for"
+
+HTML => "class" attribute is valid
+JSX => use "className" instead of "class"

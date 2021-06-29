@@ -1,0 +1,66 @@
+<!-- component = presentation + UI behavior + UI state -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Intro</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <style>
+        .highlight{
+            font-size: 18pt;
+            color : blue;
+        }
+    </style>
+    <script type="text/babel">
+        class Greeter extends React.Component{
+            //state
+            state = {
+                greetMessage : '[Default greet message]',
+                userName : ''
+            };
+
+            //ui behavior
+            onBtnGreetClick = () => {
+                this.setState({
+                    greetMessage : `Hi ${this.state.userName}, Have a nice day!`
+                });
+            };
+
+            onTxtUserNameChange = (evt) => {
+                this.setState({
+                    userName : evt.target.value
+                });
+            }
+
+            //presentation
+            render(){
+                return (
+                    <div>
+                        <h1>Greeter</h1>
+                        <hr/>
+                        <label htmlFor="">User Name :</label>
+                        <input type="text" onChange={this.onTxtUserNameChange}/>
+                        <input type="button" value="Greet" onClick={this.onBtnGreetClick}/>
+                        <div className="highlight">{this.state.greetMessage}</div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Greeter/>, 
+            document.getElementById('root')
+        );
+    </script>
+</head>
+<body>
+    <div id="root">
+
+
+    </div>
+</body>
+</html>
