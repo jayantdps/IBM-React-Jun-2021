@@ -1,0 +1,65 @@
+<!-- Products management using functional component -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+        const Products = () => {
+            const [newProductName, setNewProductName] = React.useState('')
+            const [productNames, setProductNames] = React.useState([])
+
+            const onBtnAddNewClick = () => {
+                const updatedProductNames = [ ...productNames, newProductName ];
+                setProductNames(updatedProductNames)
+                setNewProductName('');
+            };
+
+            const onBtnRemoveClick = (productToRemove) => {
+                const updatedProductNames = productNames.filter(productName => productName != productToRemove);
+                setProductNames(updatedProductNames)
+            };
+
+            const productItems = productNames.map((productName, index) => (
+                <li key={index}>
+                    <span>{productName}</span>
+                    <span> 
+                        <input type="button" value="Remove" onClick={ () => onBtnRemoveClick(productName) }/> 
+                    </span>
+                </li>
+            ));
+
+            return(
+                <div>
+                    <h1>Products</h1>
+                    <hr/>
+                    <label>Product Name :</label>
+                    <input 
+                        type="text" 
+                        value={newProductName}
+                        onChange={ evt => setNewProductName(evt.target.value)} />
+                    <input type="button" value="Add New" onClick={onBtnAddNewClick}/>
+                    <ul>
+                        {productItems}
+                    </ul>
+                </div>
+            )
+        }
+        
+        ReactDOM.render(
+            <Products/>, 
+            document.getElementById('root')
+        );
+    </script>
+</head>
+<body>
+    <div id="root">
+        
+    </div>
+</body>
+</html>
