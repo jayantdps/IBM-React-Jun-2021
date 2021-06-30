@@ -85,3 +85,19 @@ JSX => use "htmlFor" instead of "for"
 
 HTML => "class" attribute is valid
 JSX => use "className" instead of "class"
+
+
+Components as functions
+    - Memory Efficient
+    - Lifecycle methods in class based Components
+        - componentWillMount
+        - componentDidMount
+        - shouldComponentUpdate
+        - render
+        - componentWillunmount
+
+    func(input) => output
+    React Hooks
+        functions to handle side effects in functional components
+
+    
