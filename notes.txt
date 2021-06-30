@@ -99,5 +99,28 @@ Components as functions
     func(input) => output
     React Hooks
         functions to handle side effects in functional components
+            hook function names must start with the word 'use'
 
+        Builtin hooks
+            -useState
+            -useEffect
+            -useCallback
+            -useMemo
+            -useReducer
+            -useRef
     
+State
+    UI State
+        - data that supports the presentation needs of the application
+        - it is highly UNLIKELY that this data is needed in other parts of the application (outside the component)
+        - feel free to maintain this in the component state
+
+    App State
+        - data that supports the core domain logic of the application
+        - it is highly LIKELY that this data is needed throughout the application
+        - DO NOT dare to maintain this in the component state (keep it outside the component hierarchy)
+
+
+Flux architecture
+Redux (implementation of Flux architecture (a slightly altered version))
+
