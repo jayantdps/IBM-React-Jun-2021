@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <style>
+        .categoryItem{
+            margin-top: 10px;
+            margin-right : 10px;
+            padding : 5px;
+            border : 1px solid black;
+            cursor: pointer;
+        }
+        .categoryItem.selected{
+            background-color: #e7e7e7;
+        }
+        .divFilter{
+            margin-top: 20px;
+        }
+
+    </style>
+    <script type="text/babel">
+        class Products extends React.Component{
+            state = {
+                newProductName : '',
+                productNames : []
+            }
+
+            onBtnAddNewClick = () => {
+                const { newProductName, productNames } = this.state;
+                const updatedProductNames = [ ...productNames, newProductName ];
+                this.setState({ 
+                    productNames : updatedProductNames,
+                    newProductName : '' 
+                });
+            };
+
+            onBtnRemoveClick = (productToRemove) => {
+                const updatedProductNames = this.state.productNames.filter(productName => productName != productToRemove);
+                this.setState({
+                    productNames : updatedProductNames
+                });
+            };
+
+            render(){
+                const { productNames, newProductName } = this.state;
+                const productItems = productNames.map((productName, index) => (
+                    <li key={index}>
+                        <span>{productName}</span>
+                        <span> 
+                            <input type="button" value="Remove" onClick={ () => this.onBtnRemoveClick(productName) }/> 
+                        </span>
+                    </li>
+                ))
+                return(
+                    <div>
+                        <h1>Products</h1>
+                        <hr/>
+                        {/* AddProduct Component */}
+                        <label>Product Name :</label>
+                        <input 
+                            type="text" 
+                            value={newProductName}
+                            onChange={ evt => this.setState({newProductName : evt.target.value})} />
+                        <label> Category : </label>
+                        <select>
+                            <option>--Select--</option>
+                            <option>Stationary</option>
+                            <option>Grocery</option>
+                            <option>Utencil</option>
+                        </select>
+                        <input type="button" value="Add New" onClick={this.onBtnAddNewClick}/>
+                        {/* ProductFilter component */}
+                        <div className="divFilter">
+                            <label >Apply Filter</label>
+                            <input type="checkbox"/>
+                            <span className="categoryItem selected">Stationary</span>
+                            <span className="categoryItem">Grocery</span>
+                            <span className="categoryItem">Utencil</span>
+                        </div>
+                        {/* ProductList component */}
+                        <ul>
+                            {productItems}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <Products/>, 
+            document.getElementById('root')
+        );
+    </script>
+</head>
+<body>
+    <div id="root">
+        
+    </div>
+</body>
+</html>
