@@ -28,12 +28,23 @@
         class Products extends React.Component{
             state = {
                 newProductName : '',
-                productNames : []
+                productNames : [],
+                newProductCategory : '',
+                applyFilter : false,
+                selectedCategories : {
+                    "Stationary" : false,
+                    "Grocery" : false,
+                    "Utencil" : false
+                }
             }
 
             onBtnAddNewClick = () => {
-                const { newProductName, productNames } = this.state;
-                const updatedProductNames = [ ...productNames, newProductName ];
+                const { newProductName, productNames, newProductCategory } = this.state;
+                const newProduct = {
+                    name : newProductName,
+                    category : newProductCategory
+                }
+                const updatedProductNames = [ ...productNames, newProduct ];
                 this.setState({ 
                     productNames : updatedProductNames,
                     newProductName : '' 
@@ -41,19 +52,30 @@
             };
 
             onBtnRemoveClick = (productToRemove) => {
-                const updatedProductNames = this.state.productNames.filter(productName => productName != productToRemove);
+                const updatedProductNames = this.state.productNames.filter(product => product.name != productToRemove.name);
                 this.setState({
                     productNames : updatedProductNames
                 });
             };
 
+            toggleSelectedCategory = (categoryName) => {
+                const { selectedCategories } = this.state;
+                const updatedSelectedCategories = { ...selectedCategories , [categoryName] : !selectedCategories[categoryName]}
+                this.setState({selectedCategories : updatedSelectedCategories})
+            }
             render(){
-                const { productNames, newProductName } = this.state;
-                const productItems = productNames.map((productName, index) => (
+                const { productNames, newProductName, applyFilter, selectedCategories } = this.state;
+                let productsToDisplay = productNames;
+                if (applyFilter){
+                    productsToDisplay = productNames.filter(product => selectedCategories[product.category] === true);
+                }
+                const productItems = productsToDisplay.map((product, index) => (
                     <li key={index}>
-                        <span>{productName}</span>
+                        <span>{product.name}</span>
+                        <span> - </span>
+                        <span> [{product.category}] </span>
                         <span> 
-                            <input type="button" value="Remove" onClick={ () => this.onBtnRemoveClick(productName) }/> 
+                            <input type="button" value="Remove" onClick={ () => this.onBtnRemoveClick(product) }/> 
                         </span>
                     </li>
                 ))
@@ -68,20 +90,35 @@
                             value={newProductName}
                             onChange={ evt => this.setState({newProductName : evt.target.value})} />
                         <label> Category : </label>
-                        <select>
+                        <select onChange={ evt => this.setState({ newProductCategory : evt.target.value })}>
                             <option>--Select--</option>
-                            <option>Stationary</option>
-                            <option>Grocery</option>
-                            <option>Utencil</option>
+                            <option value="Stationary">Stationary</option>
+                            <option value="Grocery">Grocery</option>
+                            <option value="Utencil">Utencil</option>
                         </select>
                         <input type="button" value="Add New" onClick={this.onBtnAddNewClick}/>
                         {/* ProductFilter component */}
                         <div className="divFilter">
                             <label >Apply Filter</label>
-                            <input type="checkbox"/>
-                            <span className="categoryItem selected">Stationary</span>
-                            <span className="categoryItem">Grocery</span>
-                            <span className="categoryItem">Utencil</span>
+                            <input type="checkbox" checked={applyFilter} onChange={ evt => this.setState({applyFilter : evt.target.checked}) } />
+                            <span 
+                                className={"categoryItem " + (selectedCategories.Stationary ? 'selected' : '')} 
+                                onClick={ () => this.toggleSelectedCategory('Stationary')}
+                            >
+                                    Stationary
+                            </span>
+                            <span 
+                                className={"categoryItem " + (selectedCategories.Grocery ? 'selected' : '')}
+                                onClick={() => this.toggleSelectedCategory('Grocery')}
+                            >
+                                Grocery
+                            </span>
+                            <span 
+                                className={"categoryItem " + (selectedCategories.Utencil ? 'selected' : '')}
+                                onClick={() => this.toggleSelectedCategory('Utencil')}
+                            >
+                                Utencil
+                            </span>
                         </div>
                         {/* ProductList component */}
                         <ul>
