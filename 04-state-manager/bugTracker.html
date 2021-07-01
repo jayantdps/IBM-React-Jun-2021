@@ -10,7 +10,7 @@
         ========
         (done) 1. Add new bug
         (done) 2. List the added bugs
-        3. Toggle 'closed' status of any bug
+        (done) 3. Toggle 'closed' status of any bug
         4. Remove any bug
         5. Remove closed bugs
         6. Displaying stats (# of closed bugs / total # of bugs)
@@ -70,6 +70,10 @@
             if (action.type === 'BUG_ADD'){
                 return [...currentState, action.payload];
             }
+            if (action.type === 'BUG_UPDATE'){
+                const bugToReplace = action.payload;
+                return currentState.map(bug => bug.id === bugToReplace.id ? bugToReplace : bug);
+            }
             return currentState;
         }
 
@@ -85,19 +89,30 @@
                 };
                 const action = { type : 'BUG_ADD', payload : newBug};
                 return action;
+            },
+            toggle(bugToToggle){
+                const toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed };
+                const action = { type : 'BUG_UPDATE', payload : toggledBug };
+                return action;
             }
         }
-        const Bugs = ({list, addNew}) => {
+
+
+        const Bugs = ({list, addNew, toggle}) => {
             const [newBugName, setNewBugName] = React.useState('');
             const bugItems = list.map(bug => {
                 return (
                      <li key={bug.id}>
-                        <span className="bugname">{bug.name}</span>
+                        <span className={"bugname " + (bug.isClosed ? 'closed' : '')} 
+                            onClick={() => toggle(bug)}
+                        >
+                            {bug.name}
+                        </span>
                         <div className="datetime">{bug.createdAt.toString()}</div>
                         <input type="button" value="Remove" />
                     </li>
                 )
-            })
+            });
             return(
                 <>
                     <h1>Bug Tracker</h1>
