@@ -16,8 +16,6 @@
      -->
     <script type="text/babel">
         const Spinner = ({spinnerValue, dispatch, actionCreators}) => {
-            const inc_action = { type : 'INCREMENT' },
-                dec_action = { type : 'DECREMENT' };
 
             const onDecrementClick = () => {
                 const action = actionCreators.decrement();
