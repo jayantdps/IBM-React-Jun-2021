@@ -37,7 +37,7 @@ let StateManager = (function(){
     function bindActionCreators(actionCreators, dispatch){
         const actionDispatchers = {};
         for(let key in actionCreators){
-            actionDispatchers[key] = function(...args){
+            actionDispatchers[key] = function(...args){ /* action dispatcher function */
                 const action = actionCreators[key](...args);
                 dispatch(action);
             };
