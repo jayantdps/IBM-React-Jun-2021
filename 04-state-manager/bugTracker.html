@@ -8,8 +8,8 @@
     <!-- 
         Use Cases
         ========
-        1. Add new bug
-        2. List the added bugs
+        (done) 1. Add new bug
+        (done) 2. List the added bugs
         3. Toggle 'closed' status of any bug
         4. Remove any bug
         5. Remove closed bugs
@@ -61,55 +61,103 @@
              color : blue;
          }
      </style>
+     <script src="react.development.js"></script>
+     <script src="react-dom.development.js"></script>
+     <script src="babel.min.js"></script>
+     <script src="redux.js"></script>
+     <script type="text/babel">
+        function bugsReducer(currentState = [], action){
+            if (action.type === 'BUG_ADD'){
+                return [...currentState, action.payload];
+            }
+            return currentState;
+        }
+
+        //TO BE FIXED
+        let currentBugId = 0;
+        const bugActionCreators = {
+            addNew(newBugName){
+                const newBug = {
+                    id : ++currentBugId,
+                    name : newBugName,
+                    isClosed : false,
+                    createdAt : new Date()
+                };
+                const action = { type : 'BUG_ADD', payload : newBug};
+                return action;
+            }
+        }
+        const Bugs = ({list, addNew}) => {
+            const [newBugName, setNewBugName] = React.useState('');
+            const bugItems = list.map(bug => {
+                return (
+                     <li key={bug.id}>
+                        <span className="bugname">{bug.name}</span>
+                        <div className="datetime">{bug.createdAt.toString()}</div>
+                        <input type="button" value="Remove" />
+                    </li>
+                )
+            })
+            return(
+                <>
+                    <h1>Bug Tracker</h1>
+                    <hr/>
+                    <h3>Bugs</h3>
+                    <section className="stats">
+                        <span className="closed">1</span>
+                        <span> / </span>
+                        <span>{list.length}</span>
+                    </section>
+                    <section>
+                        <label htmlFor="">Bug Name:</label>
+                        <input type="text" onChange={ evt => setNewBugName(evt.target.value)} />
+                         {/*
+                            <label htmlFor="">Project :</label>
+                            <select name="" id="">
+                                <option value="">Project-1</option>
+                                <option value="">Project-2</option>
+                                <option value="">Project-3</option>
+                            </select> 
+                        */}
+                        <input type="button" value="Add New" onClick={ () => addNew(newBugName)} />
+                    </section>
+                    <section>
+                        <label htmlFor="">Sort By :</label>
+                        <select name="" id="">
+                            <option value=""></option>
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                        <label htmlFor="">Descending ? :</label>
+                        <input type="checkbox" name="" id="" />
+                    </section>
+                    <section className="list">
+                        <ol>
+                           {bugItems}
+                        </ol>
+                        <input type="button" value="Remove Closed" />
+                    </section>
+                </>
+            )
+        }
+
+        const store = Redux.createStore(bugsReducer);
+        const bugActionDispatchers = Redux.bindActionCreators(bugActionCreators, store.dispatch);
+
+        function renderApp(){
+            const bugs = store.getState();
+            ReactDOM.render(
+                <Bugs list={bugs} {...bugActionDispatchers} />, 
+                document.getElementById('root')
+            )
+        }
+        renderApp();
+        store.subscribe(renderApp);
+    </script>
 </head>
 <body>
     <div id="root">
-        <h1>Bug Tracker</h1>
-        <hr>
-        <h3>Bugs</h3>
-        <section class="stats">
-            <span class="closed">1</span>
-            <span> / </span>
-            <span>2</span>
-        </section>
-        <section>
-            <label for="">Bug Name:</label>
-            <input type="text" name="" id="">
-            <!-- 
-                <label for="">Project :</label>
-                <select name="" id="">
-                    <option value="">Project-1</option>
-                    <option value="">Project-2</option>
-                    <option value="">Project-3</option>
-                </select> 
-            -->
-            <input type="button" value="Add New">
-        </section>
-        <section>
-            <label for="">Sort By :</label>
-            <select name="" id="">
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-            </select>
-            <label for="">Descending ? :</label>
-            <input type="checkbox" name="" id="">
-        </section>
-        <section class="list">
-            <ol>
-                <li>
-                    <span class="bugname">[This is bug - 1]</span>
-                    <div class="datetime">[Created At]</div>
-                    <input type="button" value="Remove">
-                </li>
-                <li>
-                    <span class="bugname closed">[This is bug - 2]</span>
-                    <div class="datetime">[Created At]</div>
-                    <input type="button" value="Remove">
-                </li>
-            </ol>
-            <input type="button" value="Remove Closed">
-        </section>
+        
     </div>
 </body>
 </html>
