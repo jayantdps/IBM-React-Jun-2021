@@ -24,7 +24,7 @@
      -->
     <script type="text/babel">
         const Spinner = ({spinnerValue, increment, decrement, double, half}) => {
-            const [delta,setDelta] = React.useState(0)
+            const [delta,setDelta] = React.useState(1)
             return (
                  <div>
                     <h3>Spinner</h3>
@@ -52,6 +52,7 @@
         
         const spinnnerActionCreators = {
             increment(delta = 1){
+                console.log(delta)
                 const action = { type: 'INCREMENT', payload : delta };
                 return action; 
             },
