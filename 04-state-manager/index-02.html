@@ -11,12 +11,11 @@
     <script src="babel.min.js"></script>
     <!-- 
         01. Initial implementation
-
+        02. Remove the dependency on the store (by passing the state & dispatch to the component)
 
      -->
     <script type="text/babel">
-        const Spinner = ({store}) => {
-            const spinnerValue = store.getState();
+        const Spinner = ({spinnerValue, dispatch}) => {
             const inc_action = { type : 'INCREMENT' },
                 dec_action = { type : 'DECREMENT' };
 
@@ -24,9 +23,9 @@
                  <div>
                     <h3>Spinner</h3>
                     <hr />
-                    <input type="button" value="Decrement" onClick={() => store.dispatch(dec_action)}/>
+                    <input type="button" value="Decrement" onClick={() => dispatch(dec_action)}/>
                     <span> [ {spinnerValue} ] </span>
-                    <input type="button" value="Increment" onClick={() => store.dispatch(inc_action)}/>
+                    <input type="button" value="Increment" onClick={() => dispatch(inc_action)}/>
                 </div>
             )
         }
@@ -40,8 +39,9 @@
         const store = StateManager.createStore(spinnerReducer);
 
         function renderSpinner(){
+            const value = store.getState();
             ReactDOM.render(
-                <Spinner store={store} />
+                <Spinner spinnerValue={value} dispatch={store.dispatch} />
                 , document.getElementById('root')
             );
         }
