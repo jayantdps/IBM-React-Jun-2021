@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracker</title>
+    <!-- 
+        Use Cases
+        ========
+        1. Add new bug
+        2. List the added bugs
+        3. Toggle 'closed' status of any bug
+        4. Remove any bug
+        5. Remove closed bugs
+        6. Displaying stats (# of closed bugs / total # of bugs)
+        7. Sort the bugs
+        8. Adding, Listing projects (homework)
+        9. Associate the bugs with the project
+        10. Persist the bugs in the server
+        11. Make the bugs accessible using unique URLs (Routing)
+        12. Unit testing of the components
+        13. End to End testing of the application
+        14. Build and deployment
+     -->
+     <style>
+         body{
+             margin-left: 50px;
+         }
+         section{
+             margin-bottom: 10px;
+         }
+         .stats, .bugname{
+             font-size: 18pt;
+         }
+         .closed{
+             color : red;
+             text-decoration: line-through;
+             font-style: italic;
+             font-weight: bold;
+         }
+         .bugname {
+             cursor: pointer;
+         }
+         .datetime{
+             font-style: italic;
+         }
+         ol{
+             width : 500px;
+             list-style: none;
+             -webkit-padding-start: 0px;
+         }
+         li{
+             margin-bottom: 10px;
+             padding : 10px;
+             border : 1px solid gray;
+             background-color: #e7e7e7;
+             border-radius: 5px;
+         }
+         #root > h1 {
+             color : blue;
+         }
+     </style>
+</head>
+<body>
+    <div id="root">
+        <h1>Bug Tracker</h1>
+        <hr>
+        <h3>Bugs</h3>
+        <section class="stats">
+            <span class="closed">1</span>
+            <span> / </span>
+            <span>2</span>
+        </section>
+        <section>
+            <label for="">Bug Name:</label>
+            <input type="text" name="" id="">
+            <!-- 
+                <label for="">Project :</label>
+                <select name="" id="">
+                    <option value="">Project-1</option>
+                    <option value="">Project-2</option>
+                    <option value="">Project-3</option>
+                </select> 
+            -->
+            <input type="button" value="Add New">
+        </section>
+        <section>
+            <label for="">Sort By :</label>
+            <select name="" id="">
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+            <label for="">Descending ? :</label>
+            <input type="checkbox" name="" id="">
+        </section>
+        <section class="list">
+            <ol>
+                <li>
+                    <span class="bugname">[This is bug - 1]</span>
+                    <div class="datetime">[Created At]</div>
+                    <input type="button" value="Remove">
+                </li>
+                <li>
+                    <span class="bugname closed">[This is bug - 2]</span>
+                    <div class="datetime">[Created At]</div>
+                    <input type="button" value="Remove">
+                </li>
+            </ol>
+            <input type="button" value="Remove Closed">
+        </section>
+    </div>
+</body>
+</html>
