@@ -7,10 +7,11 @@ import BugSort from './components/bugSort';
 import BugList from './components/bugList';
 import bugActionCreators from './actions';
 
-const Bugs = ({list, addNew, toggle, remove, removeClosed, projects}) => { 
+const Bugs = ({list, addNew, toggle, remove, removeClosed, projects, load}) => { 
     return(
         <>
             <h3>Bugs</h3>
+            <input type="button" value="LOAD BUGS" onClick={load} />
             <BugStats list={list} />
             <BugEdit addNew={addNew} projects={projects}/>
             <BugSort/>

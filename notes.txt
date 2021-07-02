@@ -227,7 +227,7 @@ yarn install axios
 in the main index.js 
     import axios from 'axios'
     window['axios'] = axios;
-    
+
 function getBugs(){
     return axios
         .get('http://localhost:3030/bugs')
@@ -241,4 +241,15 @@ function displayBugs(){
     p.then(function(bugs){
         console.table(bugs);
     });
+}
+
+//the above functions using async await
+async function getBugs(){
+    var response = await axios.get('http://localhost:3030/bugs')
+    return response.data;
+}
+
+async function displayBugs(){
+    var bugs = await getBugs();
+    console.table(bugs);
 }
