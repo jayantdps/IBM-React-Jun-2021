@@ -2,25 +2,46 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import './index.css';
 import store from './store';
 
 import Bugs from './bugs';
 import Projects from './projects';
+import Home from './Home';
 
-import axios from 'axios';
-//console.dir(axios)
-window['axios'] = axios;
    
 ReactDOM.render(
     <React.StrictMode>
       <Provider store={store}>
-        <div>
-          <h1>Bug Tracker</h1>
-          <hr/>
-          <Projects />
-          <Bugs />
-        </div>
+        <Router>
+          <div>
+            <h1>Bug Tracker</h1>
+            <div>
+              <span> [ <Link to="/">Home</Link> ] </span>
+              <span> [ <Link to="/projects">Projects</Link> ] </span>
+              <span> [ <Link to="/bugs">Bugs</Link> ] </span>
+            </div>
+            <hr/>
+            <Switch>
+              <Route path="/projects">
+                <Projects />
+              </Route>
+              <Route path="/bugs">
+                <Bugs />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
       </Provider>
     </React.StrictMode>,
     document.getElementById('root')

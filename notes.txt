@@ -268,3 +268,7 @@ third party alternatives for logger and async middlewares
     - redux-thunk
 
     yarn add redux-logger redux-thunk
+
+
+Routing library for react - 
+    react-router-dom
