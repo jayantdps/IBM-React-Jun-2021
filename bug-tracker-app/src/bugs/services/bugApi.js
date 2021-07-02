@@ -8,6 +8,21 @@ async function getAll(){
     return bugs;
 }
 
-const bugApi = { getAll }
+async function save(bugData){
+    if (bugData.id === 0){
+        const response = await axios.post(serviceEndpoint, bugData);
+        return response.data;
+    } else {
+        const response = await axios.put(`${serviceEndpoint}/${bugData.id}`, bugData);
+        return response.data;
+    }
+}
+
+async function remove(bugData){
+    const response = await axios.delete(`${serviceEndpoint}/${bugData.id}`);
+    return response.data;
+}
+
+const bugApi = { getAll, save, remove }
 
 export default bugApi;

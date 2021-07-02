@@ -1,6 +1,9 @@
+import remove from "./remove";
+
 function removeClosed(currentBugs /* TO BE FIXED */){
-    const bugsToRetain = currentBugs.filter(bug => !bug.isClosed);
-    const action = { type : 'BUG_INIT', payload : bugsToRetain};
-    return action;
+    return async function(dispatch){
+        const bugsToRemove = currentBugs.filter(bug => bug.isClosed);
+        bugsToRemove.forEach(bugsToRemove => remove(bugsToRemove)(dispatch));
+    }
 }
 export default removeClosed;
