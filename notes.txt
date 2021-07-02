@@ -173,3 +173,11 @@ Day-4 Homework
     0. Refactor the bugTracker code in the newly created app setup
     1. Implement the projects (Adding & Listing)
     2. Read about ES6 Promise
+
+
+react-redux (adapter between react and redux)
+    (to install run the command 'yarn add react-redux'  )
+    Provider
+    connect
+        mapStateToProps (from the given 'storeState' extract the data for the component)
+        mapDispatchToProps (from the given 'dispatch' , create the action dispatchers to be passed as props to the component)

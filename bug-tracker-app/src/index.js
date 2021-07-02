@@ -1,37 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { bindActionCreators } from 'redux';
+import { Provider } from "react-redux";
+
 import './index.css';
 import store from './store';
-import bugActionCreators from './bugs/actions'
+
 import Bugs from './bugs';
-
-import projectActionCreators from './projects/actions';
 import Projects from './projects';
+   
+ReactDOM.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <div>
+          <h1>Bug Tracker</h1>
+          <hr/>
+          <Projects />
+          <Bugs />
+        </div>
+      </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+)
 
-const bugActionDispatchers = bindActionCreators(bugActionCreators, store.dispatch);
-const projectActionDispatchers = bindActionCreators(projectActionCreators, store.dispatch);
-
-function renderApp(){
-    
-    const storeState = store.getState(),
-      projects = storeState.projectsState,
-      bugs = storeState.bugsState;
-
-    ReactDOM.render(
-        <React.StrictMode>
-          <div>
-            <h1>Bug Tracker</h1>
-            <hr/>
-            <Projects projectsList={projects} {...projectActionDispatchers} />
-            <Bugs list={bugs} {...bugActionDispatchers} />
-          </div>
-        </React.StrictMode>,
-        document.getElementById('root')
-    )
-}
-renderApp();
-store.subscribe(renderApp);
 
 
 //ES6 Modules
