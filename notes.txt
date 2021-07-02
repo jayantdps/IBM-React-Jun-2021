@@ -272,3 +272,8 @@ third party alternatives for logger and async middlewares
 
 Routing library for react - 
     react-router-dom
+
+
+To create a build
+    yarn build
+    copy and paste the contents of the 'build' folder in any webserver

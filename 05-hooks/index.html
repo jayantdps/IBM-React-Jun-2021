@@ -9,7 +9,9 @@
     <script src="react-dom.development.js"></script>
     <script src="babel.min.js"></script>
     <script type="text/babel">
-        const Timer = () => {
+
+        //custom hook
+        function useTimer(){
             const [currentTime, setCurrentTime] = React.useState(new Date());
             React.useEffect(() => {
                 //this function is executed whenever the component is initialized / updated
@@ -22,7 +24,12 @@
                     clearInterval(timerId);
                     console.log('timer component unloaded')
                 }
-            },[] /* all the variables which when changed we want the 'initialization/updation' function to execute */)
+            }, [] /* all the variables which when changed we want the 'initialization/updation' function to execute */)
+            return currentTime;
+        }
+
+        const Timer = () => {
+            const currentTime = useTimer()
             return (
                 <h3>{currentTime.toString()}</h3>
             )
