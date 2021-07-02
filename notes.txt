@@ -218,3 +218,27 @@ Restful services
 
 
 Middleware is used to encapsulate any common logic that need to be applied for all the actions
+
+
+Promise is an object designed to hold the result of an async operation and let the subscribers know when the result is available
+
+yarn install axios
+
+in the main index.js 
+    import axios from 'axios'
+    window['axios'] = axios;
+    
+function getBugs(){
+    return axios
+        .get('http://localhost:3030/bugs')
+        .then(function(response){
+            return response.data;
+        });
+}
+
+function displayBugs(){
+    var p = getBugs();
+    p.then(function(bugs){
+        console.table(bugs);
+    });
+}

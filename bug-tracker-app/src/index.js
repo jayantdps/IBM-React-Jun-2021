@@ -7,6 +7,10 @@ import store from './store';
 
 import Bugs from './bugs';
 import Projects from './projects';
+
+import axios from 'axios';
+//console.dir(axios)
+window['axios'] = axios;
    
 ReactDOM.render(
     <React.StrictMode>
