@@ -11,6 +11,18 @@
       "name": "Serrver communication failure",
       "isClosed": false,
       "createdAt": "2021-07-02T11:27:23.399Z"
+    },
+    {
+      "id": 5,
+      "name": "Debugger failed",
+      "isClosed": false,
+      "createdAt": "2021-07-02T11:53:18.535Z"
+    },
+    {
+      "id": 6,
+      "name": "Debugger failed",
+      "isClosed": false,
+      "createdAt": "2021-07-02T11:53:39.520Z"
     }
   ],
   "projects": [
