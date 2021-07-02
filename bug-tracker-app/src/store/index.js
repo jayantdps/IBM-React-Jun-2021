@@ -36,6 +36,15 @@ function asyncMiddleware({dispatch, getState}){
 
 //const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncMiddleware));
 
-const store = createStore(rootReducer, applyMiddleware(logger, thunk));
+const promiseMiddleware = store => next => async action => {
+    if (action instanceof Promise){
+        const actionObj = await action;
+        store.dispatch(actionObj)
+    } else {
+        next(action);
+    }
+}
+
+const store = createStore(rootReducer, applyMiddleware(logger, thunk, promiseMiddleware));
 
 export default store;

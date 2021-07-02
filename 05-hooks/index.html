@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hooks</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel">
+        const Timer = () => {
+            const [currentTime, setCurrentTime] = React.useState(new Date());
+            React.useEffect(() => {
+                //this function is executed whenever the component is initialized / updated
+                console.log('timer component initialized / updated')
+                const timerId = setInterval(() => {
+                    setCurrentTime(new Date())
+                }, 1000);
+                return () => {
+                    //this function is executed whenever the component is unloaded
+                    clearInterval(timerId);
+                    console.log('timer component unloaded')
+                }
+            },[] /* all the variables which when changed we want the 'initialization/updation' function to execute */)
+            return (
+                <h3>{currentTime.toString()}</h3>
+            )
+        }
+
+        const TimerContainer = () => {
+            const [showTimer, setShowTimer] = React.useState(true);
+            return (
+                <div>
+                    <label>Show Timer </label>
+                    <input checked={showTimer} type="checkbox" onChange={ evt => setShowTimer(evt.target.checked)} />
+                    {showTimer && <Timer/>}
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <TimerContainer/>
+            , document.getElementById('root')
+        );
+
+    </script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+</body>
+</html>

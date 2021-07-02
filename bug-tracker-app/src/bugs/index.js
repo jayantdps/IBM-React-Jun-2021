@@ -18,7 +18,7 @@ const Bugs = ({list, addNew, toggle, remove, removeClosed, projects, load}) => {
             <BugList {...{list, toggle, remove, removeClosed}} />
         </>
     )
-}
+};
 
 function mapStateToProps(storeState){
     const bugs = storeState.bugsState,
