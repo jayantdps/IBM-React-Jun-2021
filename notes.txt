@@ -211,3 +211,10 @@ Restful services
         403 -> Unauthorized access
         404 -> Not found
         500 -> Server error
+
+
+1. middlewares
+2. promises
+
+
+Middleware is used to encapsulate any common logic that need to be applied for all the actions
