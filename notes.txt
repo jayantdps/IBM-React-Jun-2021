@@ -185,3 +185,29 @@ react-redux (adapter between react and redux)
 
 https://w3.ibm.com/tools/cio/forms/landing/org/app/ba91031f-5875-48db-9cfb-3818ef7ae8c3/launch/index.html?form=F_Form1
 
+
+
+json-server (node.js module)
+    exposes the data from a JSON file as restful services
+
+
+Restful services
+    What data you want -> URL
+        http://localhost:3030/bugs
+        http://localhost:3030/bugs/101
+        http://localhost:3030/projects
+
+    What operation -> http verbs (methods)
+        GET  (select in db)
+        POST (insert in db)
+        PUT  (update in db)
+        PATCH (update in db)
+        DELETE (delete in db)
+
+    Response -> Http Status Codes
+        200 -> OK
+        201 -> Object Created (response expected for POST requests)
+        302 -> Object moved
+        403 -> Unauthorized access
+        404 -> Not found
+        500 -> Server error
