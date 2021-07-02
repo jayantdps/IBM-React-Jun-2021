@@ -1,4 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import bugsReducer from '../bugs/reducers/bugsReducer';
 import projectsReducer from '../projects/reducers/projectsReducer';
 
@@ -7,8 +9,8 @@ const rootReducer = combineReducers({
     bugsState : bugsReducer
 });
 
-function loggerMiddleware(store){
-    return function(next /* reference to the next middleware in the middleware chain */){
+/* function loggerMiddleware(store){
+    return function(next){
         return function(action){
             console.group(action.type);
             console.log("Before ", store.getState())
@@ -20,18 +22,20 @@ function loggerMiddleware(store){
     }
 }
 
-function asyncMiddleware(store){
+function asyncMiddleware({dispatch, getState}){
     return function(next){
         return function(action){
             if (typeof action === 'function'){
-                action(store.dispatch)
+                action(dispatch, getState)
             } else {
                 next(action)
             }
         }
     }
-}
+} */
 
-const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncMiddleware));
+//const store = createStore(rootReducer, applyMiddleware(loggerMiddleware, asyncMiddleware));
+
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 export default store;

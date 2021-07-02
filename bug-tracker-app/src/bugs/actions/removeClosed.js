@@ -1,7 +1,9 @@
 import remove from "./remove";
 
-function removeClosed(currentBugs /* TO BE FIXED */){
-    return async function(dispatch){
+function removeClosed(){
+    return async function(dispatch, getState){
+        const storeState = getState()
+        const currentBugs = storeState.bugsState;
         const bugsToRemove = currentBugs.filter(bug => bug.isClosed);
         bugsToRemove.forEach(bugsToRemove => remove(bugsToRemove)(dispatch));
     }

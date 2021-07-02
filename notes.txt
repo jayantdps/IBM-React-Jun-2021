@@ -253,3 +253,18 @@ async function displayBugs(){
     var bugs = await getBugs();
     console.table(bugs);
 }
+
+
+There are only 2 places where you have access to the complete store state
+    1. mapStateToProps
+        if you want the whole store state for display purposes
+
+    2. action creators (if it is an async action)
+        if you want the whole store state for manipulation purposes
+
+
+third party alternatives for logger and async middlewares
+    - redux-logger
+    - redux-thunk
+
+    yarn add redux-logger redux-thunk
