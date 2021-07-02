@@ -7,12 +7,12 @@ import BugSort from './components/bugSort';
 import BugList from './components/bugList';
 import bugActionCreators from './actions';
 
-const Bugs = ({list, addNew, toggle, remove, removeClosed}) => { 
+const Bugs = ({list, addNew, toggle, remove, removeClosed, projects}) => { 
     return(
         <>
             <h3>Bugs</h3>
             <BugStats list={list} />
-            <BugEdit addNew={addNew}/>
+            <BugEdit addNew={addNew} projects={projects}/>
             <BugSort/>
             <BugList {...{list, toggle, remove, removeClosed}} />
         </>
@@ -20,8 +20,9 @@ const Bugs = ({list, addNew, toggle, remove, removeClosed}) => {
 }
 
 function mapStateToProps(storeState){
-    const bugs = storeState.bugsState;
-    return { list : bugs }
+    const bugs = storeState.bugsState,
+        projects = storeState.projectsState;
+    return { list : bugs, projects : projects }
 }
 
 function mapDispatchToProps(dispatch){
