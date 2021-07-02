@@ -6,13 +6,26 @@ import store from './store';
 import bugActionCreators from './bugs/actions'
 import Bugs from './bugs';
 
+import projectActionCreators from './projects/actions';
+import Projects from './projects';
+
 const bugActionDispatchers = bindActionCreators(bugActionCreators, store.dispatch);
+const projectActionDispatchers = bindActionCreators(projectActionCreators, store.dispatch);
 
 function renderApp(){
-    const bugs = store.getState();
+    
+    const storeState = store.getState(),
+      projects = storeState.projectsState,
+      bugs = storeState.bugsState;
+
     ReactDOM.render(
         <React.StrictMode>
-          <Bugs list={bugs} {...bugActionDispatchers} />
+          <div>
+            <h1>Bug Tracker</h1>
+            <hr/>
+            <Projects projectsList={projects} {...projectActionDispatchers} />
+            <Bugs list={bugs} {...bugActionDispatchers} />
+          </div>
         </React.StrictMode>,
         document.getElementById('root')
     )
